@@ -18,7 +18,7 @@
 //Note-taker App has styling
 -top border with name, add button, save button that appears
 //When title and note are typed, save button appears
-//on-click, save button saves notwe and displays it in left column
+//on-click, save button saves note and displays it in left column
 //when saved note on left click, it is displayed on right
 
 The application should have a db.json file on the back end that will be used to store and retrieve notes using the fs module.
