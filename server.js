@@ -15,7 +15,17 @@ app.get('/note', (req, res) => {
   res.sendFile(__dirname + 'public/notes.html');
 });
 
-console.log(path.join(__dirname, 'index.html'));
+//utilizes API routes
+const apiRoutes = require('./routes/notes')
+app.use('/api', apiRoutes);
+
+//includes index.html
+app.get('./public/index.html', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+});
+
+
+//If app listens, log Port message
 app.listen(port, () => {
-    console.log(`API server now on port 3002!`);
+    console.log(`API server now on PORT: ${PORT}`);
   });
