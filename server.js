@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const port = 3002;
 
+//Returns object/key pair of extended/true
+app.use(express(urlencoded( { extended:true})));
 //serving static assets
 app.use(express.static('public'))
 //app.get('/api/notation', (req, res) => {
