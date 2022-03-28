@@ -8,7 +8,7 @@ app.use(express(urlencoded( { extended:true})));
 //App utilizes express.json
 app,use(express.json());
 //serving static assets
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 //incorporate notes html
 app.get('/note', (req, res) => {
@@ -20,12 +20,12 @@ const apiRoutes = require('./routes/notes')
 app.use('/api', apiRoutes);
 
 //includes index.html
-app.get('./public/index.html', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
 });
 
 
 //If app listens, log Port message
 app.listen(port, () => {
-    console.log(`API server now on PORT: ${PORT}`);
+    console.log(`API server now on PORT: ${PORT}}`);
   });
