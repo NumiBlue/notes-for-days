@@ -1,0 +1,27 @@
+# Query: saveNoteBtn
+# ContextLines: 1
+
+6 results - 1 file
+
+public/assets/js/index.js:
+    2  let noteTxt;
+    3: let saveNote;
+    4  let newNoteBtn;
+
+    9    noteTxt = document.querySelector('.note-textarea');
+   10:   saveNote = document.querySelector('.save-note');
+   11    newNoteBtn = document.querySelector('.new-note');
+
+   53  const renderActiveNote = () => {
+   54:   hide(saveNote);
+   55  
+
+  112    if (!noteWhat.value.trim() || !noteTxt.value.trim()) {
+  113:     hide(saveNote);
+  114    } else {
+  115:     show(saveNote);
+  116    }
+
+  176  if (window.location.pathname === '/notes') {
+  177:   saveNote.addEventListener('click', handleNoteSave);
+  178    newNoteBtn.addEventListener('click', handleNewNoteView);

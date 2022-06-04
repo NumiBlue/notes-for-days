@@ -1,15 +1,15 @@
-let noteTitle;
-let noteText;
-let saveNoteBtn;
-let newNoteBtn;
-let noteList;
+let noteWhat;
+let noteTxt;
+let savNote;
+let newNotes;
+let listaNotes;
 
 if (window.location.pathname === '/notes') {
-  noteTitle = document.querySelector('.note-title');
-  noteText = document.querySelector('.note-textarea');
-  saveNoteBtn = document.querySelector('.save-note');
-  newNoteBtn = document.querySelector('.new-note');
-  noteList = document.querySelectorAll('.list-container .list-group');
+  noteWhat = document.querySelector('.note-title');
+  noteTxt = document.querySelector('.note-textarea');
+  savNote = document.querySelector('.save-note');
+  newNotes = document.querySelector('.new-note');
+  listaNotes = document.querySelectorAll('.list-container .list-group');
 }
 
 // Show an element
@@ -33,7 +33,7 @@ const getNotes = () =>
     },
   });
 
-const saveNote = (note) =>
+const savNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
     headers: {
@@ -51,27 +51,27 @@ const deleteNote = (id) =>
   });
 
 const renderActiveNote = () => {
-  hide(saveNoteBtn);
+  hide(savNote);
 
   if (activeNote.id) {
-    noteTitle.setAttribute('readonly', true);
-    noteText.setAttribute('readonly', true);
-    noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
+    noteWhat.setAttribute('readonly', true);
+    noteTxt.setAttribute('readonly', true);
+    noteWhat.value = activeNote.title;
+    noteTxt.value = activeNote.text;
   } else {
-    noteTitle.removeAttribute('readonly');
-    noteText.removeAttribute('readonly');
-    noteTitle.value = '';
-    noteText.value = '';
+    noteWhat.removeAttribute('readonly');
+    noteTxt.removeAttribute('readonly');
+    noteWhat.value = '';
+    noteTxt.value = '';
   }
 };
 
 const handleNoteSave = () => {
   const newNote = {
-    title: noteTitle.value,
-    text: noteText.value,
+    title: noteWhat.value,
+    text: noteTxt.value,
   };
-  saveNote(newNote).then(() => {
+  savNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -109,21 +109,21 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
-  if (!noteTitle.value.trim() || !noteText.value.trim()) {
-    hide(saveNoteBtn);
+  if (!noteWhat.value.trim() || !noteTxt.value.trim()) {
+    hide(savNote);
   } else {
-    show(saveNoteBtn);
+    show(savNote);
   }
 };
 
 // Render the list of note titles
-const renderNoteList = async (notes) => {
+const renderlistaNotes = async (notes) => {
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
-    noteList.forEach((el) => (el.innerHTML = ''));
+    listaNotes.forEach((el) => (el.innerHTML = ''));
   }
 
-  let noteListItems = [];
+  let listaNotesItems = [];
 
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {
@@ -155,29 +155,29 @@ const renderNoteList = async (notes) => {
   };
 
   if (jsonNotes.length === 0) {
-    noteListItems.push(createLi('No saved Notes', false));
+    listaNotesItems.push(createLi('No saved Notes', false));
   }
 
   jsonNotes.forEach((note) => {
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
 
-    noteListItems.push(li);
+    listaNotesItems.push(li);
   });
 
   if (window.location.pathname === '/notes') {
-    noteListItems.forEach((note) => noteList[0].append(note));
+    listaNotesItems.forEach((note) => listaNotes[0].append(note));
   }
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+const getAndRenderNotes = () => getNotes().then(renderlistaNotes);
 
 if (window.location.pathname === '/notes') {
-  saveNoteBtn.addEventListener('click', handleNoteSave);
-  newNoteBtn.addEventListener('click', handleNewNoteView);
-  noteTitle.addEventListener('keyup', handleRenderSaveBtn);
-  noteText.addEventListener('keyup', handleRenderSaveBtn);
+  savNote.addEventListener('click', handleNoteSave);
+  newNotes.addEventListener('click', handleNewNoteView);
+  noteWhat.addEventListener('keyup', handleRenderSaveBtn);
+  noteTxt.addEventListener('keyup', handleRenderSaveBtn);
 }
 
 getAndRenderNotes();

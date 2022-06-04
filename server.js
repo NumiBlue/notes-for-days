@@ -2,7 +2,7 @@ const express = require('express');
 const res = require('express/lib/response');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 //Returns object/key pair of extended/true
 app.use(express.urlencoded({ extended: true }));
