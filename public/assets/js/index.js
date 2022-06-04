@@ -6,9 +6,9 @@ let listaNotes;
 
 if (window.location.pathname === '/notes') {
   noteWhat = document.querySelector('.note-title');
-  noteTxt = document.querySelector('.note-textarea');
-  savNote = document.querySelector('.save-note');
-  newNotes = document.querySelector('.new-note');
+  noteTxt = document.querySelector('.notes-here');
+  savNote = document.querySelector('.save-this-note');
+  newNotes = document.querySelector('.add-note');
   listaNotes = document.querySelectorAll('.list-container .list-group');
 }
 
